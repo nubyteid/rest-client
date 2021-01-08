@@ -226,11 +226,6 @@ class PenerbitController extends Controller
                 ->setMethod('patch')
                 ->setData(['idPenerbit' => $id, 'namaPenerbit' => $penerbit])
                 ->send();
-
-                echo'<pre>';
-                print_R($response); die();
-                echo'</pre>';
-
             Yii::$app->getSession()->setFlash('success', 'Ubah data berhasil');
             return $this->redirect(['index']);
         }
