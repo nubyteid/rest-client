@@ -57,8 +57,6 @@ class PenerbitController extends Controller
                             'Authorization' => 'Bearer '.$token,])
             ->send();
         
-        die();
-        
         $data = Json::decode($response->content, true);
 
         $dataProvider = new ArrayDataProvider([
