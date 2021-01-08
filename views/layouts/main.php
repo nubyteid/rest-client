@@ -42,7 +42,7 @@ AppAsset::register($this);
 
     if (Yii::$app->user->isGuest) {
 
-        $menuItems[] = ['label' => 'Login', 'url' => 'site/login',
+        $menuItems[] = ['label' => 'Login', 'url' => ['site/login'],
                         'linkOptions' => ['style' => 'color: #fff;']];
     } else {
         $menuItems[] = ['label' => 'Penerbit', 'url' => ['/penerbit/index'], 'linkOptions' => ['style' => 'color: #fff;']];
