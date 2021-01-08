@@ -229,9 +229,6 @@ class PenerbitController extends Controller
             Yii::$app->getSession()->setFlash('success', 'Ubah data berhasil');
             return $this->redirect(['index']);
         }
-
-       
-
         return $this->render('update', [
             'model' => $model,
             'id' => $id,
