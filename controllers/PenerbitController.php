@@ -50,7 +50,7 @@ class PenerbitController extends Controller
 
         $token = $user['accessToken'];
 
-        $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/index.php?r=v1/penerbit']);
+        $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/index.php?r=v1']);
         $response = $client->createRequest()
             ->setUrl('penerbit')
             ->addHeaders(['content-type' => 'application/json',
