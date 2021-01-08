@@ -116,7 +116,7 @@ class LoginForm extends Model
     $client = new Client();
     $response = $client->createRequest()
       ->setMethod('post')
-      ->setUrl('http://localhost/rest-server/web/client/login')
+      ->setUrl('http://34.70.203.218/rest-server/web/index.php?r=client/login')
       ->setData(['username' => $this->username, 'password' => $this->password])
       ->send();
 

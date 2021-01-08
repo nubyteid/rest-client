@@ -50,7 +50,7 @@ class PenerbitController extends Controller
 
         $token = $user['accessToken'];
 
-        $client = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/']);
+        $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/index.php?r=v1/penerbit']);
         $response = $client->createRequest()
             ->setUrl('penerbit')
             ->addHeaders(['content-type' => 'application/json',
@@ -117,7 +117,7 @@ class PenerbitController extends Controller
             $id = $model->idPenerbit;
             $penerbit = $model->namaPenerbit;
             
-            $client = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/penerbit']);
+            $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/index.php?r=v1/penerbit']);
             $response = $client->createRequest()
                 ->setUrl('create')
                 ->addHeaders(['content-type' => 'application/json',
@@ -183,9 +183,9 @@ class PenerbitController extends Controller
         $model->idPenerbit = $id;
         $idPenerbit = $model->idPenerbit;
         
-        $client = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/penerbit']);
+        $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/index.php?r=v1/penerbit']);
         $response = $client->createRequest()
-            ->setUrl('delete?id='.$id)
+            ->setUrl('delete&id='.$id)
             ->addHeaders(['content-type' => 'application/json',
                         'Authorization' => 'Bearer '.$token,])
             ->setMethod('delete')
@@ -219,9 +219,9 @@ class PenerbitController extends Controller
             $id = $model->idPenerbit;
             $penerbit = $model->namaPenerbit;
             
-            $client = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/penerbit']);
+            $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/index.php?r=v1/penerbit']);
             $response = $client->createRequest()
-                ->setUrl('update?id='.$id)
+                ->setUrl('update&id='.$id)
                 ->addHeaders(['content-type' => 'application/json',
                             'Authorization' => 'Bearer '.$token,])
                 ->setMethod('patch')
