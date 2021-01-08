@@ -184,7 +184,7 @@ class PenerbitController extends Controller
         
         $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/penerbit']);
         $response = $client->createRequest()
-            ->setUrl('delete&id='.$id)
+            ->setUrl('delete?id='.$id)
             ->addHeaders(['content-type' => 'application/json',
                         'Authorization' => 'Bearer '.$token,])
             ->setMethod('delete')
@@ -220,12 +220,14 @@ class PenerbitController extends Controller
             
             $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/penerbit']);
             $response = $client->createRequest()
-                ->setUrl('update&id='.$id)
+                ->setUrl('update?id='.$id)
                 ->addHeaders(['content-type' => 'application/json',
                             'Authorization' => 'Bearer '.$token,])
                 ->setMethod('patch')
                 ->setData(['idPenerbit' => $id, 'namaPenerbit' => $penerbit])
                 ->send();
+            
+                
             Yii::$app->getSession()->setFlash('success', 'Ubah data berhasil');
             return $this->redirect(['index']);
         }
