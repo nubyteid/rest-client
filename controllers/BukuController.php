@@ -150,7 +150,7 @@ class BukuController extends Controller
                 ->setData(['idBuku' => $idBuku, 'judul' => $judul, 'idPengarang'=>$idPengarang, 'idPenerbit'=>$idPenerbit])
                 ->send();
             
-
+            print_R($response); die();
             Yii::$app->getSession()->setFlash('success', 'Tambah data berhasil');
             return $this->redirect(['index']);
         }
