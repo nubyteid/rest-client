@@ -51,7 +51,7 @@ class BukuController extends Controller
 
         $token = $user['accessToken'];
 
-        $client = new Client(['baseUrl' => 'http://34.123.112.166/rest-server/web/v1/']);
+        $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/']);
         $response = $client->createRequest()
             ->setUrl('buku?expand=penerbit,pengarang')
             ->addHeaders(['content-type' => 'application/json',
@@ -110,7 +110,7 @@ class BukuController extends Controller
 
         $token = $user['accessToken'];
 
-        $clientPengarang = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/']);
+        $clientPengarang = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/']);
         $responsePengarang = $clientPengarang->createRequest()
             ->setUrl('pengarang')
             ->addHeaders(['content-type' => 'application/json',
@@ -120,7 +120,7 @@ class BukuController extends Controller
         $dataPengarang = Json::decode($responsePengarang->content, true);
         $arrayPengarang = ArrayHelper::map($dataPengarang,'id','namaPengarang');
 
-        $clientPenerbit = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/']);
+        $clientPenerbit = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/']);
         $responsePenerbit = $clientPenerbit->createRequest()
             ->setUrl('penerbit')
             ->addHeaders(['content-type' => 'application/json',
