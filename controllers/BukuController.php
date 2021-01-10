@@ -139,6 +139,8 @@ class BukuController extends Controller
             $judul = $model->judul;
             $idPengarang = $model->idPengarang;
             $idPenerbit = $model->idPenerbit;
+
+            print_R($idPengarang.$idPenerbit); die();
             
             $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/buku']);
             $response = $client->createRequest()
@@ -149,9 +151,6 @@ class BukuController extends Controller
                 ->setData(['idBuku' => $idBuku, 'judul' => $judul, 'idPengarang'=>$idPengarang, 'idPenerbit'=>$idPenerbit])
                 ->send();
             
-            echo '<pre>';
-            print_r($response);die();
-            echo '</pre>';
 
             Yii::$app->getSession()->setFlash('success', 'Tambah data berhasil');
             return $this->redirect(['index']);
