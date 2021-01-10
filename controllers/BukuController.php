@@ -51,7 +51,7 @@ class BukuController extends Controller
 
         $token = $user['accessToken'];
 
-        $client = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/']);
+        $client = new Client(['baseUrl' => 'http://34.123.112.166//rest-server/web/v1/']);
         $response = $client->createRequest()
             ->setUrl('buku?expand=penerbit,pengarang')
             ->addHeaders(['content-type' => 'application/json',
