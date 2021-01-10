@@ -147,10 +147,10 @@ class BukuController extends Controller
                 ->addHeaders(['content-type' => 'application/json',
                             'Authorization' => 'Bearer '.$token,])
                 ->setMethod('post')
-                ->setData(['idBuku' => $idBuku, 'judul' => $judul, 'idPengarang'=>$idPengarang, 'idPenerbit'=>$idPenerbit])
+                ->setData(['idBuku' => $idBuku, 'judul' => $judul, 'idPenerbit'=>$idPenerbit, 'idPengarang'=>$idPengarang,])
                 ->send();
             
-            print_R($response); die();
+           
             Yii::$app->getSession()->setFlash('success', 'Tambah data berhasil');
             return $this->redirect(['index']);
         }
