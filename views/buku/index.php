@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     
       <br>
 
-      <?= Html::a('<i class = "glyphicon glyphicon-plus"></i> Tambah', ['/buku/create'], ['class'=>'btn btn-primary']) ?>
+      <?= Html::a('<i class = "glyphicon glyphicon-plus"></i> Tambah', ['/pengarang/create'], ['class'=>'btn btn-primary']) ?>
       <br> <br>
     
       <tr>
@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
         if($result['pengarang']) {
             $penerbit[] = $result['penerbit'];   
         } ?>
-
+        
          <td><?= $result['idBuku']?></td>
          <td><?= $result['judul']?></td>
          <td><?= ($pengarang[0]['namaPengarang'])?></td>
