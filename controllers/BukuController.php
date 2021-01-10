@@ -11,6 +11,7 @@ use yii\httpclient\Client;
 use yii\helpers\Json;
 use kartik\mpdf\Pdf;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;;
 
 /**
  * ProposalController implements the CRUD actions for proposal model.
@@ -109,22 +110,48 @@ class BukuController extends Controller
 
         $token = $user['accessToken'];
 
-        $model = new \yii\base\DynamicModel(['id', 'namaPengarang']);
-        $model->addRule(['id', 'namaPengarang'], 'safe');
+        $clientPengarang = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/']);
+        $responsePengarang = $clientPengarang->createRequest()
+            ->setUrl('pengarang')
+            ->addHeaders(['content-type' => 'application/json',
+                            'Authorization' => 'Bearer '.$token,])
+            ->send();
+        
+        $dataPengarang = Json::decode($responsePengarang->content, true);
+        $arrayPengarang = ArrayHelper::map($dataPengarang,'id','namaPengarang');
+
+        $clientPenerbit = new Client(['baseUrl' => 'http://localhost/rest-server/web/v1/']);
+        $responsePenerbit = $clientPenerbit->createRequest()
+            ->setUrl('penerbit')
+            ->addHeaders(['content-type' => 'application/json',
+                            'Authorization' => 'Bearer '.$token,])
+            ->send();
+        
+        $dataPenerbit = Json::decode($responsePenerbit->content, true);
+        $arrayPenerbit = ArrayHelper::map($dataPenerbit,'idPenerbit','namaPenerbit');
+
+        $model = new \yii\base\DynamicModel(['idBuku', 'judul','idPenerbit','idPengarang']);
+        $model->addRule(['idBuku', 'judul','idPenerbit', 'idPengarang'], 'safe');
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $id = $model->id;
-            $pengarang = $model->namaPengarang;
+            $idBuku = $model->idBuku;
+            $judul = $model->judul;
+            $idPengarang = $model->idPengarang;
+            $idPenerbit = $model->idPenerbit;
             
-            $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/pengarang']);
+            $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/buku']);
             $response = $client->createRequest()
                 ->setUrl('create')
                 ->addHeaders(['content-type' => 'application/json',
                             'Authorization' => 'Bearer '.$token,])
                 ->setMethod('post')
-                ->setData(['id' => $id, 'namaPengarang' => $pengarang])
+                ->setData(['idBuku' => $idBuku, 'judul' => $judul, 'idPengarang'=>$idPengarang, 'idPenerbit'=>$idPenerbit])
                 ->send();
+            
+            echo '<pre>';
+            print_r($response);die();
+            echo '</pre>';
 
             Yii::$app->getSession()->setFlash('success', 'Tambah data berhasil');
             return $this->redirect(['index']);
@@ -132,6 +159,10 @@ class BukuController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'dataPenerbit' => $dataPenerbit,
+            'arrayPengarang' => $arrayPengarang,
+            'arrayPenerbit' => $arrayPenerbit,
+
         ]);
     }
 
