@@ -139,8 +139,6 @@ class BukuController extends Controller
             $judul = $model->judul;
             $idPengarang = $model->idPengarang;
             $idPenerbit = $model->idPenerbit;
-
-            print_R($idPengarang.$idPenerbit); die();
             
             $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/buku']);
             $response = $client->createRequest()
