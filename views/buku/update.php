@@ -4,12 +4,24 @@ use yii\widgets\ActiveForm;
 ?>
 <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput(['value' => $id, 'readonly' => true]) ?>
+<?= $form->field($model, 'idBuku')->textInput(['value' => $id, 'readonly' => true]) ?>
 
-    <?= $form->field($model, 'namaPengarang') ?>
+<?= $form->field($model, 'judul') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
-    </div>
+<?= $form->field($model, 'idPenerbit')
+    ->dropDownList(
+        $arrayPenerbit,           // Flat array ('id'=>'label')
+        ['prompt'=>'Pilih Penerbit']    // options
+    ) ->label('Penerbit'); ?>
+
+<?= $form->field($model, 'idPengarang')
+    ->dropDownList(
+        $arrayPengarang,           // Flat array ('id'=>'label')
+        ['prompt'=>'Pilih Pengarang']    // options
+    ) ->label('Pengarang'); ?>
+
+<div class="form-group">
+    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+</div>
 
 <?php ActiveForm::end(); ?>

@@ -204,15 +204,15 @@ class BukuController extends Controller
 
         $token = $user['accessToken'];  
 
-        $model = new \yii\base\DynamicModel(['id', 'namaPengarang']);
-        $model->addRule(['id', 'namaPengarang'], 'safe');
+        $model = new \yii\base\DynamicModel(['idBuku', 'judul','idPenerbit','idPengarang']);
+        $model->addRule(['idBuku', 'judul','idPenerbit', 'idPengarang'], 'safe');
         
         $model->load(Yii::$app->request->post());
         
-        $model->id = $id;
-        $id = $model->id;
+        $model->idBuku = $id;
+        $id = $model->idBuku;
         
-        $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/pengarang']);
+        $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/buku']);
         $response = $client->createRequest()
             ->setUrl('delete?id='.$id)
             ->addHeaders(['content-type' => 'application/json',
@@ -240,21 +240,45 @@ class BukuController extends Controller
 
         $token = $user['accessToken'];
 
-        $model = new \yii\base\DynamicModel(['id', 'namaPengarang']);
-        $model->addRule(['id', 'namaPengarang'], 'safe');
+        $clientPengarang = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/']);
+        $responsePengarang = $clientPengarang->createRequest()
+            ->setUrl('pengarang')
+            ->addHeaders(['content-type' => 'application/json',
+                            'Authorization' => 'Bearer '.$token,])
+            ->send();
+        
+        $dataPengarang = Json::decode($responsePengarang->content, true);
+        $arrayPengarang = ArrayHelper::map($dataPengarang,'id','namaPengarang');
+
+        $clientPenerbit = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/']);
+        $responsePenerbit = $clientPenerbit->createRequest()
+            ->setUrl('penerbit')
+            ->addHeaders(['content-type' => 'application/json',
+                            'Authorization' => 'Bearer '.$token,])
+            ->send();
+        
+        $dataPenerbit = Json::decode($responsePenerbit->content, true);
+        $arrayPenerbit = ArrayHelper::map($dataPenerbit,'idPenerbit','namaPenerbit');
+
+        $model = new \yii\base\DynamicModel(['idBuku', 'judul','idPenerbit','idPengarang']);
+        $model->addRule(['idBuku', 'judul','idPenerbit', 'idPengarang'], 'safe');
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $id = $model->id;
-            $pengarang = $model->namaPengarang;
+            $model->idBuku = $id;
+            $id = $model->idBuku; 
+            $idBuku = $model->idBuku;
+            $judul = $model->judul;
+            $idPengarang = $model->idPengarang;
+            $idPenerbit = $model->idPenerbit;
             
-            $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/pengarang']);
+            $client = new Client(['baseUrl' => 'http://34.70.203.218/rest-server/web/v1/buku']);
             $response = $client->createRequest()
                 ->setUrl('update?id='.$id)
                 ->addHeaders(['content-type' => 'application/json',
                             'Authorization' => 'Bearer '.$token,])
                 ->setMethod('patch')
-                ->setData(['id' => $id, 'namaPengarang' => $pengarang])
+                ->setData(['idBuku' => $id, 'judul' => $judul, 'idPenerbit'=>$idPenerbit, 'idPengarang'=>$idPengarang,])
                 ->send();
             
                 
@@ -264,6 +288,9 @@ class BukuController extends Controller
         return $this->render('update', [
             'model' => $model,
             'id' => $id,
+            'arrayPengarang' => $arrayPengarang,
+            'arrayPenerbit' => $arrayPenerbit,
+
         ]);
     }
 

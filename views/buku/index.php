@@ -29,6 +29,7 @@ use yii\widgets\ActiveForm;
         <th>Judul Buku </th>
         <th> Pengarang</th>
         <th> Penerbit</th>
+        <th>Aksi</th>
       </tr>
 
       <?php
@@ -46,8 +47,24 @@ use yii\widgets\ActiveForm;
          <td><?= $result['judul']?></td>
          <td><?= ($pengarang[0]['namaPengarang'])?></td>
          <td><?= ($penerbit[0]['namaPenerbit'])?></td>
-       </tr> 
+       
+         <td> 
+        <?php $form = ActiveForm::begin(); ?>
+        <?= Html::a('<i class = "glyphicon glyphicon-remove"></i> Hapus', ['buku/delete', 'id' => $result['idBuku']], [
+                'class' => 'btn btn-sm btn-danger',
+                'data-confirm' => 'Are you sure?',
+                'data-method' => 'post',
+            ]) ?>
+        <?php ActiveForm::end(); ?>
+
+        <?= Html::a('<i class = "glyphicon glyphicon-pencil"></i> Ubah', ['buku/update', 'id' => $result['idBuku']], [
+                'class' => 'btn btn-sm btn-success'
+            ]) ?>
+        </td>
+
        <?php endforeach; ?>
+       </tr> 
+       
        </table>
 
 

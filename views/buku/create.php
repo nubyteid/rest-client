@@ -4,7 +4,7 @@ use yii\widgets\ActiveForm;
 ?>
 <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idBuku') ?>
+    <?= $form->field($model, 'idBuku')->textInput(['value' => $id, 'readonly' => true]) ?>
 
     <?= $form->field($model, 'judul') ?>
 
